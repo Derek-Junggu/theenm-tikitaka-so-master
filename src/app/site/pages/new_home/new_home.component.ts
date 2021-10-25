@@ -11,7 +11,7 @@ import { fadeIn } from 'src/app/share/animations/fade-in.animation';
 @Component({
   selector: 'app-home',
   templateUrl: './new_home.component.html',
-  styleUrls: ['./new_home.component.scss',],
+  styleUrls: ['./new_home.component.scss'],
   animations: [fadeIn,],
 })
 export class newHomeComponent implements OnInit {

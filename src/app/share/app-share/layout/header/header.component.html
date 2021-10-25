@@ -1,7 +1,7 @@
 <header fxLayout='column' class="tt-header">
     <div fxShow fxHide.lt-lg="true" fxHide.gt-md="false" class="tt-header-top" >
         <div class="tt-header-top-inner" >
-            <input class="tt-header-search" type="text" placeholder="검색어를 입력하세요"/>
+            <input matInput class="tt-header-search" type="text" placeholder="검색어를 입력하세요." [(ngModel)]="qp.searchWord" (keyup.enter)="onEnterSearch()">
         </div>
     </div>
     <div fxShow fxHide.lt-md="false" fxHide.gt-md="true" fxLayout="row" fxLayoutAlign="center center" class="tt-header-top-mobile" >
@@ -21,8 +21,8 @@
         
     </div>
     <div class="tt-header-bottom" >
-        <ul>
-            <li *ngFor="let item of category">{{ item.name }}</li>
+        <ul class="category-top">
+            <li *ngFor="let item of category" (click)="categoryClick(item)">{{ item.name }}</li>
         </ul>
     </div>        
     <div class="tt-header-bottom" >
@@ -31,31 +31,11 @@
             <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 24 24" fill="none" stroke="#B5B4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             <li>
-                <a class="active" href="" (click)="onSelectMenu('/site/p/intro')">HOT 게시글</a>
+                <a class="active" href="javascript:;" (click)="onSelectItem('/site/p/intro')">HOT 게시글</a>
             </li>
-            <li>
-                <a href="" (click)="onSelectMenu('/site/p/intro')">경제</a>
+            <li *ngFor="let item of galleryModels">
+                <a href="javascript:;" (click)="onSelectItem(item)">{{ item.name }}</a>
             </li>
-            <li>
-                
-                <a href="" (click)="onSelectMenu('/site/p/intro')">스포츠</a>
-            </li>
-            <li>
-                <a href="" (click)="onSelectMenu('/site/p/intro')">영화</a>
-            </li>
-            <li>
-                <a href="" (click)="onSelectMenu('/site/p/intro')">여행</a>
-            </li>
-            <li>
-                <a href="" (click)="onSelectMenu('/site/p/intro')">연예</a>
-            </li>
-            <li>
-                <a href="" (click)="onSelectMenu('/site/p/intro')">인터넷방송</a>
-            </li>
-            <li>
-                <a href="" (click)="onSelectMenu('/site/p/intro')">자동차</a>
-            </li>
-
             <li>
                 <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 24 24" fill="none" stroke="#B5B4B4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
             </li>
