@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/service/category.service';
 import { ApiService } from 'src/app/service/api.service';
 import { Router } from '@angular/router';
@@ -10,7 +10,9 @@ import { BroadcastValue } from 'src/app/share/app-share/broadcast/broadcast-even
 import { PostModel } from 'src/app/models/posts/post.model';
 import { UsersService } from 'src/app/service/users.service';
 import { PostService } from 'src/app/service/post.service';
+import { YouTubePlayer } from '@angular/youtube-player'
 
+let apiLoaded = false;
 @Component({
   selector: 'app-new-home-main',
   templateUrl: './home_main.component.html',
@@ -21,6 +23,8 @@ export class newHomeMainComponent implements OnInit {
   constructor(private router: Router, private _posts: PostService,
     private _category: CategoryService,
     private _users: UsersService, private _api: ApiService, private broadcastService: BroadcastService) { }
+
+  @ViewChild('youtube_player', { static: false }) player: YouTubePlayer;
 
   isLoading = false;
   qp = new QueryParams();
@@ -41,6 +45,12 @@ export class newHomeMainComponent implements OnInit {
           console.log(data)
           this.loadItems(data.attrs)
       })
+      if (!apiLoaded) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        document.body.appendChild(tag);
+        apiLoaded = true;
+      }
   }
 
   async loadItems(attrs) {
@@ -61,7 +71,9 @@ export class newHomeMainComponent implements OnInit {
           m.categoryModel = await this._category.loadCategoryIfNeed(m.categoryIdx);
           m.galleryModel = await this._category.loadGalleryIfNeed(m.galleryIdx);
           m.userCreator = await this._users.user_get_ifNeed(m.creatorIdx);
-          if(m.display === 'Y') this.articles.push(m) 
+          if(m.display === 'Y') this.articles.push(m)
+          m.imageUrl = m.getImagePath(m.imageId)
+          console.log(m)
           this._posts.loadEvalData(m);
         }
         this.articles.map(param => {
@@ -77,9 +89,14 @@ export class newHomeMainComponent implements OnInit {
       console.log(ftag, 'err=', err);
     }
   }
+  
 
   onClickLogin() {
     this._api.navigate('/p/a/sign-in');
+  }
+
+  on_ready($event) {
+    const ftag = `on_ready(),`;
   }
 
 }

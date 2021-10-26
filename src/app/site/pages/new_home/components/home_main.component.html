@@ -24,19 +24,31 @@
                 </div>
             </div>
 
-            <div class="article" *ngFor="let item of articles">
-               
-                <div class="article-thumb">
-                    <img src="{{item.thumbnailUrl }}">
-                </div>
-                <div class="article-body">
-                    <p class="article-body-title">{{ item.title }} </p>
-                    <p class="article-body-board">{{ item.galleryModel.name }} </p>
-                    <p class="article-body-regdate">{{ item.updatedTs }}</p>
-                </div>
-               
-    
+            <div *ngIf="articles.length > 0">
+                <div class="article" *ngFor="let item of articles">
+                    <div class="article-thumb" *ngIf="!item.imageId && !item.youtubeId">
+                        
+                    </div>
+                    <div class="article-thumb" *ngIf="item.imageId">
+                        <img [src]="item.imageUrl" style="width: 192px; height: 135px;">
+                    </div>
+                    <div class="articele-youtube" *ngIf="!item.imageId && item.youtubeId">
+                        <youtube-player #youtube_player [videoId]="item.youtubeId"
+                        [width]="192"
+                        [height]="135"
+                        (ready)="on_ready($event)"
+                        ></youtube-player>
+                    </div>
+                    <div class="article-body">
+                        <p class="article-body-title">{{ item.youtubeLink }} </p>
+                        <p class="article-body-title">{{ item.title }} </p>
+                        <p class="article-body-board">{{ item.galleryModel.name }} </p>
+                        <p class="article-body-regdate">{{ item.updatedTs }}</p>
+                    </div>
+                
+        
 
+                </div>
             </div>
 
     </div>    

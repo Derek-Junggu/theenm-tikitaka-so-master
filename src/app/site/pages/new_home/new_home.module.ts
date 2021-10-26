@@ -5,6 +5,7 @@ import { HomeRoutingModule } from './new_home-routing.module';
 import { newHomeComponent } from './new_home.component';
 import { newHomeMainComponent } from './components/home_main.component';
 import { AppShareModule } from 'src/app/share/app-share/app-share.module';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { AppShareModule } from 'src/app/share/app-share/app-share.module';
     newHomeMainComponent,
   ],
   imports: [
+    YouTubePlayerModule,
     CommonModule,
     HomeRoutingModule,
     AppShareModule,

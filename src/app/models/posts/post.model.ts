@@ -38,6 +38,7 @@ export class PostModel extends BaseModel {
     @Attr mediaType: string; // MediaType
     @Attr imageId: string;
     @Attr youtubeId: string;
+    @Attr imageUrl : string;
 
     // https://trello.com/c/mi8Hv9hH/103-조회수-기준-문의
     @Attr viewCount: number;
